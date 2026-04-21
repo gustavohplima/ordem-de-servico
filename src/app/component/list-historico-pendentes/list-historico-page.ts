@@ -28,7 +28,13 @@ export class ListHistoricoPage implements OnInit {
     })
   );
 
+  
+
   ngOnInit(): void {
+    this.lista$.subscribe(dados => {
+      console.log('Chaves:', Object.keys(dados));
+      console.log('Valores:', Object.values(dados));
+});
     // O observable lista$ já é inicializado antes do template ser renderizado.
   }
 

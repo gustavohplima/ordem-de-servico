@@ -16,6 +16,7 @@ interface PageFormValue {
   cor: string;
   nSerieOuImei: string;
   valor: number;
+  formaPagamento: string;
   contato: string;
   observacao: string;
   status: Formulario['status'];
@@ -42,6 +43,7 @@ export class PageForm {
     cor: FormControl<string>;
     nSerieOuImei: FormControl<string>;
     valor: FormControl<number>;
+    formaPagamento: FormControl<string>;
     contato: FormControl<string>;
     observacao: FormControl<string>;
     status: FormControl<Formulario['status']>;
@@ -55,6 +57,7 @@ export class PageForm {
     cor: new FormControl<string>('', { nonNullable: true }),
     nSerieOuImei: new FormControl<string>('', { nonNullable: true }),
     valor: new FormControl<number>(0, { nonNullable: true }),
+    formaPagamento: new FormControl<string>('Não informado', { nonNullable: true }),
     contato: new FormControl<string>('', { nonNullable: true }),
     observacao: new FormControl<string>('', { nonNullable: true }),
     status: new FormControl<Formulario['status']>('Pendente', { nonNullable: true }),
@@ -76,6 +79,7 @@ export class PageForm {
       cor: formValue.cor,
       imei_nserie: formValue.nSerieOuImei,
       valor: formValue.valor,
+      forma_pagamento: formValue.formaPagamento,
       contato: formValue.contato,
       observacao: formValue.observacao,
       statusText: formValue.status,
@@ -94,6 +98,7 @@ export class PageForm {
           cor: '',
           nSerieOuImei: '',
           valor: 0,
+          formaPagamento: 'Não informado',
           contato: '',
           observacao: '',
           status: 'Pendente',

@@ -8,10 +8,12 @@ export interface Formulario {
   cor: string;
   nSerieOuImei: string;
   valor: number;
+  forma_pagamento: string;
   contato: string;
   observacao: string;
   status: 'Pendente' | 'Concluída';
   editando?: boolean;
+  dataHora: Date;
 }
 
 export interface PagedResponse<T> {
@@ -30,6 +32,7 @@ export interface OrdemServicoRequest {
   contato: string;
   observacao: string;
   valor: number;
+  forma_pagamento: string;
   imei_nserie: string;
   statusText: Formulario['status'];
   dataHora: Date;

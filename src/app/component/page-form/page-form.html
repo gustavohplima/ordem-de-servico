@@ -2,7 +2,7 @@
 <section class="bg-[#0d1713] rounded-2xl border border-[#1a2f26] p-6 flex flex-col h-fit">
   <div class="flex items-center gap-3 mb-6">
     <div class="w-8 h-8 rounded-full bg-[#132b21] flex items-center justify-center text-[#1fd68b]">
-      <mat-icon class="text-[20px] w-[20px] h-[20px]">add</mat-icon>
+      <mat-icon class="text-[20px] w-5 h-5">add</mat-icon>
     </div>
     <h2 class="text-lg font-bold text-white">Nova Ordem</h2>
   </div>
@@ -12,28 +12,37 @@
     <!-- NOME -->
     <div class="flex flex-col gap-1.5">
       <label for="nome" class="text-xs font-bold text-[#7aa899] uppercase tracking-wider flex items-center gap-1">
-        <mat-icon class="text-[16px] w-[16px] h-[16px]">person_outline</mat-icon> NOME
+        <mat-icon class="text-[16px] w-4 h-4">person_outline</mat-icon> NOME
       </label>
       <input type="text" id="nome" formControlName="nome" 
              class="w-full px-4 py-2 rounded-xl bg-[#08100d] border border-[#1a2f26] text-white placeholder-[#3f5c51] focus:ring-1 focus:ring-[#1fd68b] focus:border-[#1fd68b] outline-none transition-all"
              placeholder="Digite seu nome" required="Campo obrigatório">
     </div>
-
-    <!-- CPF -->
-    <div class="flex flex-col gap-1.5">
-      <label for="cpf" class="text-xs font-bold text-[#7aa899] uppercase tracking-wider flex items-center gap-1">
-        <mat-icon class="text-[16px] w-[16px] h-[16px]">badge</mat-icon> CPF
-      </label>
-      <input type="text" id="cpf" formControlName="cpf" 
-             class="w-full px-4 py-2 rounded-xl bg-[#08100d] border border-[#1a2f26] text-white placeholder-[#3f5c51] focus:ring-1 focus:ring-[#1fd68b] focus:border-[#1fd68b] outline-none transition-all"
-             placeholder="Digite o CPF:">
+    <div class="grid grid-cols-2 gap-4">
+      <!-- CPF -->
+      <div class="flex flex-col gap-1.5">
+        <label for="cpf" class="text-xs font-bold text-[#7aa899] uppercase tracking-wider flex items-center gap-1">
+          <mat-icon class="text-[16px] w-4 h-4">badge</mat-icon> CPF
+        </label>
+        <input type="text" id="cpf" formControlName="cpf" 
+              class="w-full px-4 py-2 rounded-xl bg-[#08100d] border border-[#1a2f26] text-white placeholder-[#3f5c51] focus:ring-1 focus:ring-[#1fd68b] focus:border-[#1fd68b] outline-none transition-all"
+              placeholder="Digite o CPF:">
+      </div>
+      <!-- TELEFONE -->
+        <div class="flex flex-col gap-1.5 sm:col-span-2 lg:col-span-1">
+          <label for="telefone" class="text-xs font-bold text-[#7aa899] uppercase tracking-wider flex items-center gap-1">
+            <mat-icon class="text-[16px] w-4 h-4">call</mat-icon> Nº DE TELEFONE
+          </label>
+          <input type="tel" id="contato" formControlName="contato" 
+                class="w-full px-4 py-2 rounded-xl bg-[#08100d] border border-[#1a2f26] text-white placeholder-[#3f5c51] focus:ring-1 focus:ring-[#1fd68b] focus:border-[#1fd68b] outline-none transition-all"
+                placeholder="Nº de telefone:" >
+        </div>
     </div>
-
     <div class="grid grid-cols-2 gap-4">
       <!-- MARCA -->
       <div class="flex flex-col gap-1.5">
         <label for="marca" class="text-xs font-bold text-[#7aa899] uppercase tracking-wider flex items-center gap-1">
-          <mat-icon class="text-[16px] w-[16px] h-[16px]">smartphone</mat-icon> MARCA
+          <mat-icon class="text-[16px] w-4 h-4">smartphone</mat-icon> MARCA
         </label>
             
         <select 
@@ -56,7 +65,7 @@
       <!-- MODELO -->
       <div class="flex flex-col gap-1.5">
         <label for="dispositivo" class="text-xs font-bold text-[#7aa899] uppercase tracking-wider flex items-center gap-1">
-          <mat-icon class="text-[16px] w-[16px] h-[16px]">smartphone</mat-icon> MODELOS
+          <mat-icon class="text-[16px] w-4 h-4">smartphone</mat-icon> MODELOS
         </label>
         <input type="text" id="modelo" formControlName="modelo" 
                class="w-full px-4 py-2 rounded-xl bg-[#08100d] border border-[#1a2f26] text-white placeholder-[#3f5c51] focus:ring-1 focus:ring-[#1fd68b] focus:border-[#1fd68b] outline-none transition-all"
@@ -66,7 +75,7 @@
       <!-- Cor -->
       <div class="flex flex-col gap-1.5">
         <label for="dispositivo" class="text-xs font-bold text-[#7aa899] uppercase tracking-wider flex items-center gap-1">
-          <mat-icon class="text-[16px] w-[16px] h-[16px]">brush</mat-icon> Cor
+          <mat-icon class="text-[16px] w-4 h-4">brush</mat-icon> Cor
         </label>
         <input type="text" id="cor" formControlName="cor" 
                class="w-full px-4 py-2 rounded-xl bg-[#08100d] border border-[#1a2f26] text-white placeholder-[#3f5c51] focus:ring-1 focus:ring-[#1fd68b] focus:border-[#1fd68b] outline-none transition-all"
@@ -76,7 +85,7 @@
     <!-- N de Serie ou IMEI -->
       <div class="flex flex-col gap-1.5">
         <label for="dispositivo" class="text-xs font-bold text-[#7aa899] uppercase tracking-wider flex items-center gap-1">
-          <mat-icon class="text-[16px] w-[16px] h-[16px]">smartphone</mat-icon> N de Serie ou IMEI
+          <mat-icon class="text-[16px] w-4 h-4">smartphone</mat-icon> N de Serie ou IMEI
         </label>
         <input type="text" id="nSerieOuImei" formControlName="nSerieOuImei" 
                class="w-full px-4 py-2 rounded-xl bg-[#08100d] border border-[#1a2f26] text-white placeholder-[#3f5c51] focus:ring-1 focus:ring-[#1fd68b] focus:border-[#1fd68b] outline-none transition-all"
@@ -86,7 +95,7 @@
       <!-- DEFEITO -->
       <div class="flex flex-col gap-1.5 col-span-2">
         <label for="defeito" class="text-xs font-bold text-[#7aa899] uppercase tracking-wider flex items-center gap-1">
-          <mat-icon class="text-[16px] w-[16px] h-[16px]">build</mat-icon> DEFEITO
+          <mat-icon class="text-[16px] w-4 h-4">build</mat-icon> DEFEITO
         </label>
         <input type="text" id="defeito" formControlName="defeito" 
                class="w-full px-4 py-2 rounded-xl bg-[#08100d] border border-[#1a2f26] text-white placeholder-[#3f5c51] focus:ring-1 focus:ring-[#1fd68b] focus:border-[#1fd68b] outline-none transition-all"
@@ -94,32 +103,43 @@
       </div>
     </div>
 
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-2">
       <!-- VALOR -->
       <div class="flex flex-col gap-1.5">
         <label for="valor" class="text-xs font-bold text-[#7aa899] uppercase tracking-wider flex items-center gap-1">
-          <mat-icon class="text-[16px] w-[16px] h-[16px]">attach_money</mat-icon> VALOR
+          <mat-icon class="text-[16px] w-4 h-4">attach_money</mat-icon> VALOR
         </label>
         <input type="number" id="valor" formControlName="valor" min="1" step="0.01"
                class="w-full px-4 py-2 rounded-xl bg-[#08100d] border border-[#1a2f26] text-white placeholder-[#3f5c51] focus:ring-1 focus:ring-[#1fd68b] focus:border-[#1fd68b] outline-none transition-all"
                placeholder="Valor:">
       </div>
 
-      <!-- TELEFONE -->
+      <!-- FORMA DE PAGAMENTO -->
       <div class="flex flex-col gap-1.5">
-        <label for="telefone" class="text-xs font-bold text-[#7aa899] uppercase tracking-wider flex items-center gap-1">
-          <mat-icon class="text-[16px] w-[16px] h-[16px]">call</mat-icon> Nº DE TELEFONE
+        <label for="formaPagamento" class="text-xs font-bold text-[#7aa899] uppercase tracking-wider flex items-center gap-1">
+          <mat-icon class="text-[16px] w-4 h-4">credit_card</mat-icon> FORMA DE PAGAMENTO
         </label>
-        <input type="tel" id="contato" formControlName="contato" 
-               class="w-full px-4 py-2 rounded-xl bg-[#08100d] border border-[#1a2f26] text-white placeholder-[#3f5c51] focus:ring-1 focus:ring-[#1fd68b] focus:border-[#1fd68b] outline-none transition-all"
-               placeholder="Nº de telefone:" >
+        <select
+          id="formaPagamento"
+          formControlName="formaPagamento"
+          class="w-full px-4 py-2 rounded-xl bg-[#08100d] border border-[#1a2f26]
+                focus:ring-1 focus:ring-[#1fd68b] focus:border-[#1fd68b] outline-none transition-all
+                text-white">
+          <option value="Não informado" class="text-white">Não informado</option>
+          <option value="Dinheiro" class="text-white">Dinheiro</option>
+          <option value="Pix" class="text-white">Pix</option>
+          <option value="Crédito" class="text-white">Crédito</option>
+          <option value="Débito" class="text-white">Débito</option>
+        </select>
       </div>
+
+      
     </div>
 
     <!-- OBSERVAÇÃO -->
     <div class="flex flex-col gap-1.5">
       <label for="observacao" class="text-xs font-bold text-[#7aa899] uppercase tracking-wider flex items-center gap-1">
-        <mat-icon class="text-[16px] w-[16px] h-[16px]">description</mat-icon> OBSERVAÇÃO (OPCIONAL)
+        <mat-icon class="text-[16px] w-4 h-4">description</mat-icon> OBSERVAÇÃO (OPCIONAL)
       </label>
       <textarea id="observacao" formControlName="observacao" rows="2"
                 class="w-full px-4 py-1 rounded-xl bg-[#08100d] border border-[#1a2f26] text-white placeholder-[#3f5c51] focus:ring-1 focus:ring-[#1fd68b] focus:border-[#1fd68b] outline-none transition-all resize-none"

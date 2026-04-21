@@ -12,7 +12,7 @@ import { Menu } from './component/menu/menu';
 })
 export class App {
   protected readonly title = signal('front-end-services');
-  readonly exibir = signal(false);
+  readonly exibir = signal(true);
 
   toggleMenu(): void {
     this.exibir.update((value) => !value);
