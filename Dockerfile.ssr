@@ -1,0 +1,25 @@
+FROM node:24-alpine AS build
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci
+
+COPY . .
+# Gera bundles browser + server para Angular SSR
+RUN npx ng build --configuration production --output-mode=server
+
+FROM node:24-alpine AS runtime
+
+WORKDIR /app
+ENV NODE_ENV=production
+ENV PORT=4000
+
+COPY package*.json ./
+RUN npm ci --omit=dev
+
+COPY --from=build /app/dist /app/dist
+
+EXPOSE 4000
+
+CMD ["node", "dist/front-end-services/server/server.mjs"]

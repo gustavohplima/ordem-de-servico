@@ -1,0 +1,23 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.ssr
+    container_name: ordem-servico-app
+    environment:
+      NODE_ENV: production
+      PORT: 4000
+    expose:
+      - "4000"
+    restart: unless-stopped
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web-ssr
+    container_name: ordem-servico-web
+    depends_on:
+      - app
+    ports:
+      - "8080:80"
+    restart: unless-stopped
