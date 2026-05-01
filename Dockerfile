@@ -1,35 +1,25 @@
+# Stage 1 — Build Angular app
 FROM node:22-alpine AS build
 
 WORKDIR /app
 
-# Install all deps (including dev) to compile the Angular SSR bundle.
 COPY package*.json ./
 RUN npm ci
 
-# Copy source and create production build.
 COPY . .
-RUN npm run build
+RUN npx ng build --configuration production
 
-FROM node:22-alpine AS runtime
+# Stage 2 — Serve static files with Nginx
+FROM nginx:1.27-alpine AS runtime
 
-ENV NODE_ENV=production
-ENV PORT=4000
+# Remove default Nginx config and replace with custom
+RUN rm /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/conf.d/app.conf
 
-WORKDIR /app
+# Copy Angular browser bundles from build stage
+COPY --from=build /app/dist/front-end-services/browser /usr/share/nginx/html
 
-# Install only runtime dependencies.
-COPY package*.json ./
-RUN npm ci --omit=dev && npm cache clean --force
+EXPOSE 80
 
-# Copy compiled app from build stage.
-COPY --from=build /app/dist ./dist
-
-# Use non-root user for better container security.
-USER node
-
-EXPOSE 4000
-
-HEALTHCHECK --interval=30s --timeout=5s --start-period=30s --retries=3 \
-	CMD wget -qO- "http://127.0.0.1:${PORT}/" > /dev/null || exit 1
-
-CMD ["node", "dist/front-end-services/server/server.mjs"]
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+  CMD wget -qO- http://0.0.0.0/ > /dev/null || exit 1

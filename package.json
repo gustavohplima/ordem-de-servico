@@ -7,7 +7,6 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:front-end-services": "node dist/front-end-services/server/server.mjs",
     "lint": "ng lint"
   },
   "private": true,
