@@ -5,6 +5,8 @@ WORKDIR /app
 
 COPY package*.json ./
 RUN npm ci
+RUN rm /etc/nginx/conf.d/default.conf
+
 
 COPY . .
 RUN npm install
