@@ -1,0 +1,111 @@
+<div class="min-h-screen flex items-center justify-center bg-gray-950 px-4">
+  <div class="w-full max-w-md">
+
+    <!-- Cabeçalho -->
+    <div class="text-center mb-8">
+      <h1 class="text-3xl font-bold text-white tracking-tight">JDF Cell</h1>
+      <p class="text-gray-400 mt-2 text-sm">Sistema de Ordem de Serviço</p>
+    </div>
+
+    <!-- Card -->
+    <div class="bg-gray-900 rounded-2xl shadow-2xl p-8 border border-gray-800">
+      <h2 class="text-lg font-semibold text-white mb-6">Entrar no sistema</h2>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate class="space-y-5">
+
+        <!-- Campo: Usuário -->
+        <div>
+          <label for="username" class="block text-sm font-medium text-gray-300 mb-1.5">
+            Usuário
+          </label>
+          <input
+            id="username"
+            type="text"
+            formControlName="username"
+            placeholder="Digite seu usuário"
+            autocomplete="username"
+            class="w-full px-4 py-3 rounded-lg bg-gray-800 border text-white placeholder-gray-500
+                   focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+            [class.border-gray-700]="usernameControl.untouched || usernameControl.valid"
+            [class.border-red-500]="usernameControl.invalid && usernameControl.touched"
+          />
+          @if (usernameControl.invalid && usernameControl.touched) {
+            <p class="mt-1.5 text-xs text-red-400">Usuário é obrigatório.</p>
+          }
+        </div>
+
+        <!-- Campo: Senha -->
+        <div>
+          <label for="password" class="block text-sm font-medium text-gray-300 mb-1.5">
+            Senha
+          </label>
+          <div class="relative">
+            <input
+              id="password"
+              [type]="showPassword() ? 'text' : 'password'"
+              formControlName="password"
+              placeholder="Digite sua senha"
+              autocomplete="current-password"
+              class="w-full px-4 py-3 rounded-lg bg-gray-800 border text-white placeholder-gray-500
+                     focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all pr-12"
+              [class.border-gray-700]="passwordControl.untouched || passwordControl.valid"
+              [class.border-red-500]="passwordControl.invalid && passwordControl.touched"
+            />
+
+            <!-- Toggle visibilidade da senha -->
+            <button
+              type="button"
+              (click)="togglePassword()"
+              class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+              [attr.aria-label]="showPassword() ? 'Ocultar senha' : 'Mostrar senha'"
+            >
+              @if (showPassword()) {
+                <!-- Ícone olho riscado -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
+                  <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
+                  <line x1="1" y1="1" x2="23" y2="23"/>
+                </svg>
+              } @else {
+                <!-- Ícone olho aberto -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+              }
+            </button>
+          </div>
+          @if (passwordControl.invalid && passwordControl.touched) {
+            <p class="mt-1.5 text-xs text-red-400">Senha é obrigatória.</p>
+          }
+        </div>
+
+        <!-- Botão de Submit -->
+        <button
+          type="submit"
+          [disabled]="isLoading()"
+          class="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 active:bg-blue-800
+                 disabled:bg-blue-900 disabled:cursor-not-allowed
+                 text-white font-semibold rounded-lg transition-colors
+                 flex items-center justify-center gap-2 mt-2"
+        >
+          @if (isLoading()) {
+            <svg class="animate-spin h-5 w-5 shrink-0" xmlns="http://www.w3.org/2000/svg"
+                 fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+              <path class="opacity-75" fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
+            </svg>
+            <span>Entrando...</span>
+          } @else {
+            <span>Entrar</span>
+          }
+        </button>
+
+      </form>
+    </div>
+
+  </div>
+</div>

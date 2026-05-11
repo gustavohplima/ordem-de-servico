@@ -16,8 +16,11 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(req).pipe(
       catchError((error: HttpErrorResponse) => {
-        const message = this.notificationService.getErrorMessage(error);
-        this.notificationService.error(message);
+        // Erros 401 são tratados pelo AuthInterceptor (refresh/redirect), não exibe toast aqui
+        if (error.status !== 401) {
+          const message = this.notificationService.getErrorMessage(error);
+          this.notificationService.error(message);
+        }
         return throwError(() => error);
       })
     );
