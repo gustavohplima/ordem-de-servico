@@ -2,8 +2,8 @@
 
 export interface LoginRequest {
   /** Nome de usuário ou e-mail, conforme o backend esperar */
-  username: string;
-  password: string;
+  nome: string;
+  senha: string;
 }
 
 // ── Resposta do Backend ───────────────────────────────────────────────────────
@@ -51,7 +51,7 @@ export interface TokenPayload {
 /** Representa o usuário autenticado em memória (UI state) */
 export interface AuthUser {
   /** Username ou identificador único */
-  username: string;
+  nome: string;
   /** Nome de exibição */
   name?: string;
   /** E-mail */

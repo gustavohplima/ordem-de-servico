@@ -1,7 +1,7 @@
 import { Injectable, PLATFORM_ID, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, catchError, map, of, tap } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, map, of, switchMap, tap } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
 import { AUTH_CONFIG } from '../auth/auth.config';
 import { AuthUser, LoginRequest, LoginResponse, TokenPayload } from '../model/auth';
@@ -31,14 +31,39 @@ export class AuthService {
         withCredentials: AUTH_CONFIG.WITH_CREDENTIALS,
       })
       .pipe(
-        tap(response => {
+        switchMap(response => {
           const accessToken = response[AUTH_CONFIG.TOKEN_RESPONSE_FIELD];
           const refreshToken = response[AUTH_CONFIG.REFRESH_TOKEN_RESPONSE_FIELD];
           if (accessToken) this.saveToken(accessToken);
           if (refreshToken) this.saveRefreshToken(refreshToken);
-          this._currentUser$.next(this.extractUserFromToken(accessToken));
+
+          const userFromToken = this.extractUserFromToken(accessToken);
+          if (userFromToken) {
+            this._currentUser$.next(userFromToken);
+            return of(void 0);
+          }
+
+          const fallbackUser: AuthUser = {
+            nome: credentials.nome,
+            roles: [],
+          };
+          this._currentUser$.next(fallbackUser);
+
+          // Fluxo cookie-only: autentica no servidor, mas sem retornar access token no corpo.
+          // Nesse caso, hidrata o estado com /me para que o guard libere o acesso.
+          if (AUTH_CONFIG.CHECK_AUTH_ENDPOINT) {
+            return this.checkAuth().pipe(
+              tap(() => {
+                // Se /me falhar (ex.: 403) mantendo currentUser null, preserva fallback para navegação.
+                if (!this._currentUser$.value) {
+                  this._currentUser$.next(fallbackUser);
+                }
+              }),
+            );
+          }
+
+          return of(void 0);
         }),
-        map(() => void 0),
       );
   }
 
@@ -177,7 +202,7 @@ export class AuthService {
     const payload = this.decodeToken(token);
     if (!payload) return null;
     return {
-      username: payload.sub ?? '',
+      nome: payload.sub ?? '',
       name: payload.name,
       email: payload.email,
       roles: Array.isArray(payload.roles) ? (payload.roles as string[]) : [],

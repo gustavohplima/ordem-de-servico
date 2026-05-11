@@ -9,19 +9,19 @@ export const AUTH_CONFIG = {
   API_URL: 'http://localhost:8080',
 
   /** Endpoint de login (POST). Ex: '/auth/login' | '/api/auth/signin' */
-  LOGIN_ENDPOINT: '/auth/login',
+  LOGIN_ENDPOINT: '/api/auth/login',
 
   /**
    * Endpoint de logout (POST).
    * Obrigatório em cookie HttpOnly para que o servidor invalide a sessão.
    */
-  LOGOUT_ENDPOINT: '/auth/logout',
+  LOGOUT_ENDPOINT: '/api/auth/logout',
 
   /**
    * Endpoint para renovar o access token (POST).
    * Deixe vazio ('') para desabilitar o fluxo de refresh token.
    */
-  REFRESH_TOKEN_ENDPOINT: '/auth/refresh',
+  REFRESH_TOKEN_ENDPOINT: '/api/auth/refresh',
 
   /**
    * Endpoint que retorna os dados do usuário autenticado (GET).
@@ -29,7 +29,7 @@ export const AUTH_CONFIG = {
    * Necessário para autenticação baseada em cookie HttpOnly.
    * Deixe vazio ('') para desabilitar a chamada de verificação inicial.
    */
-  CHECK_AUTH_ENDPOINT: '/auth/me',
+  CHECK_AUTH_ENDPOINT: '/api/auth/me',
 
   // ── Armazenamento Local ───────────────────────────────────────────────────
 

@@ -44,7 +44,7 @@ export class Login {
     this.isLoading.set(true);
     const { username, password } = this.loginForm.getRawValue();
 
-    this.authService.login({ username: username!, password: password! }).subscribe({
+    this.authService.login({ nome: username!, senha: password! }).subscribe({
       next: () => {
         this.isLoading.set(false);
         this.notification.success('Bem-vindo ao sistema!');

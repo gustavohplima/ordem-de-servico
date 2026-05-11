@@ -14,6 +14,7 @@ import {
 } from '@angular/common/http';
 import { provideToastr } from 'ngx-toastr';
 import { isPlatformBrowser } from '@angular/common';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
@@ -26,7 +27,14 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
     provideClientHydration(withEventReplay()),
-    provideToastr(),
+    provideAnimations(),
+    provideToastr({
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+      newestOnTop: true,
+      maxOpened: 5,
+      autoDismiss: true,
+    }),
     provideHttpClient(withFetch(), withInterceptorsFromDi()),
 
     // Interceptor genérico de erros HTTP (externo — processa a resposta por último)
