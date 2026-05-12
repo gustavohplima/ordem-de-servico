@@ -8,7 +8,7 @@ import { FiltrosRegistro, Formulario, OrdemServicoRequest, Page, PagedResponse }
 })
 export class OrdemServico {
 
-  private readonly apiUrl = 'http://localhost:8080/api/registros';
+  private readonly apiUrl = 'http://192.168.15.66:8080';
   private readonly http = inject(HttpClient); // Injeção do HttpClient para comunicação com a API
   private readonly atualizarLista = new BehaviorSubject<void>(undefined); // Subject para acionar a atualização da lista de produtos
   readonly acaoAtualizarLista$ = this.atualizarLista.asObservable(); // Observable para acionar a atualização da lista de produtos
