@@ -2,12 +2,33 @@
  * Configurações centralizadas de autenticação.
  * Adapte os valores conforme o contrato da sua API backend.
  */
+
+/**
+ * Detecta automaticamente a URL base da API conforme o ambiente:
+ * - Produção (via Nginx): http://seu-dominio/api
+ * - Desenvolvimento local: http://localhost:4200/api (proxy para :8080)
+ */
+function getApiUrl(): string {
+  // Você pode usar uma variável de ambiente se precisar de controle mais fino
+  // import.meta.env.VITE_API_URL ou process.env.API_URL
+  
+  // Opção 1: URL relativa (recomendada para produção com Nginx)
+  // Funciona porque o Nginx redireciona /api/* para o backend
+  return '';  // Deixar vazio usa a mesma origem do frontend
+  
+  // Opção 2: Se quiser URL explícita em produção
+  // return 'http://seu-dominio.com';
+}
+
 export const AUTH_CONFIG = {
   // ── Endpoints ─────────────────────────────────────────────────────────────
 
-  /** URL base da API (sem barra final). Ex: 'http://localhost:8080' */
-  API_URL: 'http://192.168.15.66:8080',
-  //API_URL: 'http://localhost:8080',
+  /** 
+   * URL base da API (sem barra final).
+   * Em produção com Nginx: use '' ou 'window.location.origin'
+   * Em desenvolvimento: 'http://localhost:8080'
+   */
+  API_URL: getApiUrl() || '',
 
   /** Endpoint de login (POST). Ex: '/auth/login' | '/api/auth/signin' */
   LOGIN_ENDPOINT: '/api/auth/login',
