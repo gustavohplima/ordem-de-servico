@@ -6,7 +6,8 @@ export const AUTH_CONFIG = {
   // ── Endpoints ─────────────────────────────────────────────────────────────
 
   /** URL base da API (sem barra final). Ex: 'http://localhost:8080' */
-  API_URL: 'http://192.168.15.66:8080',
+  API_URL: 'http://localhost:8080',
+  //API_URL: 'http://localhost:8080',
 
   /** Endpoint de login (POST). Ex: '/auth/login' | '/api/auth/signin' */
   LOGIN_ENDPOINT: '/api/auth/login',

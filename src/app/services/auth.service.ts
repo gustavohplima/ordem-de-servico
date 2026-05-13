@@ -32,8 +32,8 @@ export class AuthService {
       })
       .pipe(
         switchMap(response => {
-          const accessToken = response[AUTH_CONFIG.TOKEN_RESPONSE_FIELD];
-          const refreshToken = response[AUTH_CONFIG.REFRESH_TOKEN_RESPONSE_FIELD];
+          const accessToken = this.extractAccessToken(response);
+          const refreshToken = this.extractRefreshToken(response);
           if (accessToken) this.saveToken(accessToken);
           if (refreshToken) this.saveRefreshToken(refreshToken);
 
@@ -125,15 +125,15 @@ export class AuthService {
       )
       .pipe(
         tap(response => {
-          const accessToken = response[AUTH_CONFIG.TOKEN_RESPONSE_FIELD];
+          const accessToken = this.extractAccessToken(response);
           if (accessToken) {
             this.saveToken(accessToken);
             this._currentUser$.next(this.extractUserFromToken(accessToken));
           }
-          const newRefresh = response[AUTH_CONFIG.REFRESH_TOKEN_RESPONSE_FIELD];
+          const newRefresh = this.extractRefreshToken(response);
           if (newRefresh) this.saveRefreshToken(newRefresh);
         }),
-        map(response => response[AUTH_CONFIG.TOKEN_RESPONSE_FIELD] ?? ''),
+        map(response => this.extractAccessToken(response) ?? ''),
       );
   }
 
@@ -197,7 +197,7 @@ export class AuthService {
     return Date.now() >= payload.exp * 1000;
   }
 
-  private extractUserFromToken(token: string | undefined): AuthUser | null {
+  private extractUserFromToken(token: string | null | undefined): AuthUser | null {
     if (!token) return null;
     const payload = this.decodeToken(token);
     if (!payload) return null;
@@ -207,6 +207,26 @@ export class AuthService {
       email: payload.email,
       roles: Array.isArray(payload.roles) ? (payload.roles as string[]) : [],
     };
+  }
+
+  private extractAccessToken(response: LoginResponse): string | null {
+    const raw = response as unknown as Record<string, unknown>;
+    const configured = this.asString(raw[AUTH_CONFIG.TOKEN_RESPONSE_FIELD]);
+    if (configured) return configured;
+
+    return this.asString(raw['token']) ?? this.asString(raw['jwt']) ?? this.asString(raw['access_token']);
+  }
+
+  private extractRefreshToken(response: LoginResponse): string | null {
+    const raw = response as unknown as Record<string, unknown>;
+    const configured = this.asString(raw[AUTH_CONFIG.REFRESH_TOKEN_RESPONSE_FIELD]);
+    if (configured) return configured;
+
+    return this.asString(raw['refresh_token']);
+  }
+
+  private asString(value: unknown): string | null {
+    return typeof value === 'string' && value.trim().length > 0 ? value : null;
   }
 
   // ── Navegação ─────────────────────────────────────────────────────────────

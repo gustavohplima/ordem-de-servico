@@ -2,13 +2,14 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, catchError, Observable, shareReplay, switchMap, tap, throwError } from 'rxjs';
 import { FiltrosRegistro, Formulario, OrdemServicoRequest, Page, PagedResponse } from '../model/ordem-de-servico';
+import { AUTH_CONFIG } from '../auth/auth.config';
 
 @Injectable({
   providedIn: 'root',
 })
 export class OrdemServico {
 
-  private readonly apiUrl = 'http://192.168.15.66:8080';
+  private readonly apiUrl = `${AUTH_CONFIG.API_URL}/api/registros`;
   private readonly http = inject(HttpClient); // Injeção do HttpClient para comunicação com a API
   private readonly atualizarLista = new BehaviorSubject<void>(undefined); // Subject para acionar a atualização da lista de produtos
   readonly acaoAtualizarLista$ = this.atualizarLista.asObservable(); // Observable para acionar a atualização da lista de produtos
