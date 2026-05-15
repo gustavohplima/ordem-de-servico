@@ -11,10 +11,13 @@
 function getApiUrl(): string {
   // Você pode usar uma variável de ambiente se precisar de controle mais fino
   // import.meta.env.VITE_API_URL ou process.env.API_URL
+
+  // Aponta explicitamente para o backend desejado
+  return 'https://jdfcell.gustavohplima.com';
   
   // Opção 1: URL relativa (recomendada para produção com Nginx)
   // Funciona porque o Nginx redireciona /api/* para o backend
-  return '';  // Deixar vazio usa a mesma origem do frontend
+  // return '';
   
   // Opção 2: Se quiser URL explícita em produção
   // return 'http://seu-dominio.com';
