@@ -13,7 +13,9 @@ function getApiUrl(): string {
   // import.meta.env.VITE_API_URL ou process.env.API_URL
 
   // Aponta explicitamente para o backend desejado
-  return 'https://jdfcell.gustavohplima.com';
+  //return 'https://jdfcell.gustavohplima.com';
+  return 'http://localhost:8080';
+
   
   // Opção 1: URL relativa (recomendada para produção com Nginx)
   // Funciona porque o Nginx redireciona /api/* para o backend

@@ -3,7 +3,6 @@ import { ChangeDetectionStrategy, Component, OnInit, computed, inject, signal } 
 import { MatIconModule } from '@angular/material/icon';
 import { FiltrosRegistro, Formulario, Page, RegistroResponseDTO } from '../../model/ordem-de-servico';
 import { OrdemServico } from '../../services/ordem-servico';
-import { ToastrService } from 'ngx-toastr';
 import { NotificationService } from '../../services/notification.service';
 import { catchError, map, Observable, of, tap } from 'rxjs';
 
@@ -70,5 +69,5 @@ export class HistoricoOrdemServico implements OnInit {
     this.filtros.update(f => ({ ...f, page: 0, todos: false, pendentes: false, concluidos: true }));
     this.buscar();
   }
-
+  
 }

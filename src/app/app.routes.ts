@@ -4,6 +4,7 @@ import { Atendimento } from './pages/atendimento/atendimento';
 import { ListaDeDevedores } from './component/lista-de-devedores/lista-de-devedores';
 import { HistoricoOrdemServico } from './component/historico-ordem-servico/historico-ordem-servico';
 import { authGuard } from './guards/auth.guard';
+import { ComponenteDeTestes } from './component/componente-de-testes/componente-de-testes';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'atendimento', pathMatch: 'full' },
@@ -23,6 +24,7 @@ export const routes: Routes = [
       { path: 'home', component: Home },
       { path: 'devedores', component: ListaDeDevedores },
       { path: 'historico', component: HistoricoOrdemServico },
+      { path: 'testes', component: ComponenteDeTestes },
     ],
   },
 

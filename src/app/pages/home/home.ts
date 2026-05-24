@@ -7,7 +7,7 @@ import { HistoricoOrdemServico } from '../../component/historico-ordem-servico/h
 @Component({
   standalone: true,
   selector: 'app-home',
-  imports: [PageForm, ListHistoricoPage, HistoricoOrdemServico],
+  imports: [HistoricoOrdemServico],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
