@@ -24,8 +24,8 @@
                 <div class="text-[#1fd68b] font-bold text-lg mb-4">
                     R$ {{ order.valor }}
                 </div>
-                <div class="flex items-center gap-2 text-lg mb-4">
-                  <mat-icon class="text-[16px] w-4 h-4">tag</mat-icon>
+                <div class="flex items-center gap-2 text-lg mb-4 text-[#7aa899]">
+                  <mat-icon class="text-[16px] w-4 h-4 ">tag</mat-icon>
                   <span><span class="font-semibold text-[#7aa899]">ID:</span> {{ order.id }}</span>
                 </div>
               </div>
@@ -140,16 +140,3 @@
             }
     </div>
 </section>
-
-
-
-<!-- Verifica se a lista existe e tem itens -->
-<!-- @for (item of lista$ | async; track item.id) {
-  <div class="card">
-    <p><strong>ID:</strong> {{ item.id }}</p>
-    <p><strong>Nome:</strong> {{ item.nome }}</p>
-  </div>
-} @empty {
-  <p>Nenhum dado encontrado ou a lista está vazia.</p>
-} -->
-
