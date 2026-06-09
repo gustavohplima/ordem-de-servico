@@ -19,8 +19,8 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { HttpErrorInterceptor } from './services/http-error.interceptor';
-import { AuthInterceptor } from './interceptors/auth.interceptor';
-import { AuthService } from './services/auth.service';
+import { AuthInterceptor } from './auth/auth.interceptor';
+import { AuthService } from './auth/auth.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [

@@ -1,8 +1,8 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { map, take } from 'rxjs';
-import { AuthService } from '../services/auth.service';
-import { AUTH_CONFIG } from '../auth/auth.config';
+import { AuthService } from './auth.service';
+import { AUTH_CONFIG } from './auth.config';
 
 /**
  * Guard que protege rotas privadas.

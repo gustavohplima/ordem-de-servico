@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, catchError, map, of, switchMap, tap } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
-import { AUTH_CONFIG } from '../auth/auth.config';
+import { AUTH_CONFIG } from './auth.config';
 import { AuthUser, LoginRequest, LoginResponse, TokenPayload } from '../model/auth';
 
 @Injectable({ providedIn: 'root' })
