@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { ComponenteDeTestes } from "../../component/componente-de-testes/componente-de-testes";
 import { HistoricoOrdemServico } from "../../component/historico-ordem-servico/historico-ordem-servico";
 
 @Component({
