@@ -5,7 +5,7 @@ import { HistoricoOrdemServico } from "../../component/historico-ordem-servico/h
 @Component({
   standalone: true,
   selector: 'app-historico',
-  imports: [ComponenteDeTestes, HistoricoOrdemServico],
+  imports: [HistoricoOrdemServico],
   templateUrl: './historico.html',
   styleUrl: './historico.css',
 })
