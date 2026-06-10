@@ -20,6 +20,7 @@ import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { HttpErrorInterceptor } from './services/http-error.interceptor';
 import { AuthInterceptor } from './auth/auth.interceptor';
+import { AUTH_CONFIG } from './auth/auth.config';
 import { AuthService } from './auth/auth.service';
 
 export const appConfig: ApplicationConfig = {
@@ -61,6 +62,7 @@ export const appConfig: ApplicationConfig = {
         const platformId = inject(PLATFORM_ID);
         return (): Promise<void> => {
           if (!isPlatformBrowser(platformId)) return Promise.resolve();
+          if (AUTH_CONFIG.AUTH_BYPASS_ENABLED) return Promise.resolve();
           return new Promise<void>(resolve => {
             authService.checkAuth().subscribe({
               complete: () => resolve(),

@@ -25,6 +25,15 @@ export class AuthService {
   // ── Login / Logout ────────────────────────────────────────────────────────
 
   login(credentials: LoginRequest): Observable<void> {
+    if (AUTH_CONFIG.AUTH_BYPASS_ENABLED) {
+      const bypassUser: AuthUser = {
+        ...this.getBypassUser(),
+        nome: credentials.nome,
+      };
+      this._currentUser$.next(bypassUser);
+      return of(void 0);
+    }
+
     const url = `${AUTH_CONFIG.API_URL}${AUTH_CONFIG.LOGIN_ENDPOINT}`;
     return this.http
       .post<LoginResponse>(url, credentials, {
@@ -72,6 +81,11 @@ export class AuthService {
    * A limpeza local ocorre independentemente do resultado do backend.
    */
   logout(): Observable<void> {
+    if (AUTH_CONFIG.AUTH_BYPASS_ENABLED) {
+      this.clearSession();
+      return of(void 0);
+    }
+
     const url = `${AUTH_CONFIG.API_URL}${AUTH_CONFIG.LOGOUT_ENDPOINT}`;
     return this.http
       .post<void>(url, {}, { withCredentials: AUTH_CONFIG.WITH_CREDENTIALS })
@@ -86,6 +100,11 @@ export class AuthService {
    * Chamado via APP_INITIALIZER para hidratar o estado antes da renderização.
    */
   checkAuth(): Observable<void> {
+    if (AUTH_CONFIG.AUTH_BYPASS_ENABLED) {
+      this._currentUser$.next(this.getBypassUser());
+      return of(void 0);
+    }
+
     if (!AUTH_CONFIG.CHECK_AUTH_ENDPOINT) return of(void 0);
 
     // Caminho rápido: token local válido evita chamada de rede
@@ -237,5 +256,14 @@ export class AuthService {
 
   redirectAfterLogin(): Promise<boolean> {
     return this.router.navigate([AUTH_CONFIG.POST_LOGIN_REDIRECT]);
+  }
+
+  private getBypassUser(): AuthUser {
+    const user = AUTH_CONFIG.BYPASS_USER;
+    return {
+      nome: user.nome,
+      email: user.email,
+      roles: [...user.roles],
+    };
   }
 }

@@ -24,6 +24,10 @@ export class AuthInterceptor implements HttpInterceptor {
   private readonly refreshTokenSubject = new BehaviorSubject<string | null>(null);
 
   intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    if (AUTH_CONFIG.AUTH_BYPASS_ENABLED) {
+      return next.handle(req);
+    }
+
     // Requisições para endpoints de autenticação passam sem modificação
     if (this.isAuthEndpoint(req.url)) {
       return next.handle(req.clone({ withCredentials: AUTH_CONFIG.WITH_CREDENTIALS }));

@@ -25,7 +25,28 @@ function getApiUrl(): string {
   // return 'http://seu-dominio.com';
 }
 
+/**
+ * Bypass local de autenticação para desenvolvimento sem backend.
+ * Mantenha `false` para o fluxo real de autenticação.
+ */
+const ENABLE_LOCAL_AUTH_BYPASS = false;
+
 export const AUTH_CONFIG = {
+  // ── Modo de Desenvolvimento (sem backend) ────────────────────────────────
+
+  /**
+   * Quando `true`, desativa o fluxo real de auth (guard/interceptor/checkAuth/login).
+   * Use apenas em desenvolvimento local.
+   */
+  AUTH_BYPASS_ENABLED: ENABLE_LOCAL_AUTH_BYPASS,
+
+  /** Usuário simulado quando o bypass está habilitado */
+  BYPASS_USER: {
+    nome: 'Dev Local',
+    email: 'dev.local@jdfcell.local',
+    roles: ['ADMIN'],
+  },
+
   // ── Endpoints ─────────────────────────────────────────────────────────────
 
   /** 

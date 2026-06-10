@@ -17,6 +17,11 @@ export const authGuard: CanActivateFn = () => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
+  // Bypass local para desenvolvimento sem backend
+  if (AUTH_CONFIG.AUTH_BYPASS_ENABLED) {
+    return true;
+  }
+
   // Passo 1: verifica token local de forma síncrona (sem chamada de rede)
   const token = authService.getToken();
   if (token && !authService.isTokenExpired(token)) {

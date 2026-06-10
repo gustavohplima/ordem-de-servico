@@ -69,5 +69,11 @@ export class HistoricoOrdemServico implements OnInit {
     this.filtros.update(f => ({ ...f, page: 0, todos: false, pendentes: false, concluidos: true }));
     this.buscar();
   }
+
+  itemExpandidoId = signal<number | null>(null);
+
+  alternarExpansao(id: number): void {
+    this.itemExpandidoId.update(idAtual => idAtual === id ? null : id);
+  }
   
 }

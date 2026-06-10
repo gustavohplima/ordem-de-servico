@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
 import { Home } from './pages/home/home';
 import { Atendimento } from './pages/atendimento/atendimento';
+import { Historico } from './pages/historico/historico';
 import { ListaDeDevedores } from './component/lista-de-devedores/lista-de-devedores';
-import { HistoricoOrdemServico } from './component/historico-ordem-servico/historico-ordem-servico';
 import { authGuard } from './auth/auth.guard';
 import { ComponenteDeTestes } from './component/componente-de-testes/componente-de-testes';
 
@@ -23,8 +23,9 @@ export const routes: Routes = [
       { path: 'atendimento', component: Atendimento },
       { path: 'home', component: Home },
       { path: 'devedores', component: ListaDeDevedores },
-      { path: 'historico', component: HistoricoOrdemServico },
       { path: 'testes', component: ComponenteDeTestes },
+      { path: 'historico', component: Historico },
+
     ],
   },
 
