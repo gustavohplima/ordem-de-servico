@@ -26,7 +26,7 @@
           <div class="text-sm text-[#7aa899] mb-4">
             R$ {{ order.valor | number:'1.2-2' }} • {{ order.marca }} | {{ order.modelo }}
           </div>
-          <div class="grid grid-cols-2 items-center gap-4 text-xs text-[#5a7d70]">
+          <div class="grid grid-cols-2 gap-y-2 gap-x-2 text-sm text-[#7aa899]">
             <div class="flex items-center gap-1.5">
               <mat-icon class="text-[14px] w-3.5 h-3.5">sell</mat-icon>
               {{ order.defeito }}
@@ -48,7 +48,7 @@
                 </div>
                 <div class="flex items-center gap-2 ">
                   <mat-icon class="text-[16px] w-4 h-4">description</mat-icon>
-                    {{ order.cpf }} 
+                    {{ order.cpf || 'CPF não informado'}} 
                 </div>
                 <div class="flex items-center gap-2">
                   <mat-icon class="text-[16px] w-4 h-4">palette</mat-icon>

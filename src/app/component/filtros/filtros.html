@@ -1,0 +1,147 @@
+<!-- Container Principal do Filtro -->
+<div class="painel-filtros">
+    
+    <h3>Filtros de Busca</h3>
+
+    <form action="" method="GET">
+
+        <!-- 1. Período de Data -->
+        <div>
+            <label for="filtros-salvos">Data:</label>
+            <select id="filtros-salvos" name="filtro_salvo">
+                <option value="">Por data</option>
+                <option value="os-pendentes-mes">Por periodo</option>
+
+            </select>
+        </div>
+        <br>
+        
+
+        <fieldset>
+            <label for="data-inicio">De:</label>
+            <input type="date" id="data-inicio" name="data_inicio">
+            
+            <label for="data-fim">Até:</label>
+            <input type="date" id="data-fim" name="data_fim">
+        </fieldset>
+        <br>
+        <div class="w-full max-w-[320px] bg-white p-4 font-sans text-xs text-gray-500">
+  
+  <!-- Cabeçalho do Mês -->
+  <div class="text-center font-semibold text-gray-700 mb-4">
+    Junho 2026
+  </div>
+
+  <!-- Dias da Semana -->
+  <div class="grid grid-cols-7 text-center gap-y-3 mb-2 border-b border-gray-200 pb-2">
+    <div>Dom</div>
+    <div>Seg</div>
+    <div>Ter</div>
+    <div>Qua</div>
+    <div>Qui</div>
+    <div>Sex</div>
+    <div>Sáb</div>
+  </div>
+
+  <!-- Grade de Dias do Mês -->
+  <div class="grid grid-cols-7 text-center gap-y-4 text-gray-400 font-medium">
+    <!-- Espaços vazios se o mês não começasse na segunda (Junho 2026 começa na Seg, 1) -->
+    <!-- Caso precise pular o Domingo, adicione uma div vazia: <div></div> -->
+    
+    <!-- Semana 1 -->
+    <div class="py-1">1</div>
+    <div class="py-1">2</div>
+    <div class="py-1">3</div>
+    <div class="py-1">4</div>
+    <div class="py-1">5</div>
+    <div class="py-1">6</div>
+
+    <!-- Semana 2 -->
+    <div class="py-1">7</div>
+    <div class="py-1">8</div>
+    <div class="py-1">9</div>
+    <div class="py-1">10</div>
+    <!-- Dia Atual Destacado (11) -->
+    <div class="flex items-center justify-center">
+      <span class="flex h-6 w-6 items-center justify-center rounded-full bg-orange-600 font-bold text-white shadow-xs">
+        11
+      </span>
+    </div>
+    <div class="py-1">12</div>
+    <div class="py-1">13</div>
+
+    <!-- Semana 3 -->
+    <div class="py-1">14</div>
+    <div class="py-1">15</div>
+    <div class="py-1">16</div>
+    <div class="py-1">17</div>
+    <div class="py-1">18</div>
+    <div class="py-1">19</div>
+    <div class="py-1">20</div>
+
+    <!-- Semana 4 -->
+    <div class="py-1">21</div>
+    <div class="py-1">22</div>
+    <div class="py-1">23</div>
+    <div class="py-1">24</div>
+    <div class="py-1">25</div>
+    <div class="py-1">26</div>
+    <div class="py-1">27</div>
+
+    <!-- Semana 5 -->
+    <div class="py-1">28</div>
+    <div class="py-1">29</div>
+    <div class="py-1">30</div>
+    <!-- Preenchimento do restante da grade se necessário -->
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+
+  <!-- Linha inferior decorativa -->
+  <div class="border-b border-gray-200 mt-4"></div>
+</div>
+
+        <br>
+
+        <!-- 2. Número da OS -->
+        <div>
+            <label for="numero-os">Número da OS:</label>
+            <input type="text" id="numero-os" name="numero_os" placeholder="Ex: OS-2026-001">
+        </div>
+
+        <br>
+
+        <!-- 3. Cliente / Solicitante -->
+        <div>
+            <label for="cliente-solicitante">Cliente / Solicitante:</label>
+            <input type="text" id="cliente-solicitante" name="cliente_solicitante" placeholder="Nome, CPF, CNPJ ou Razão Social">
+        </div>
+
+        <br>
+
+        <!-- 5. Filtros Salvos -->
+        <div>
+            <label for="filtros-salvos">Filtros Salvos:</label>
+            <select id="filtros-salvos" name="filtro_salvo">
+                <option value="">-- Selecione um filtro salvo --</option>
+                <option value="os-pendentes-mes">OS Pendentes deste Mês</option>
+                <option value="faturamento-semana">Faturamento da Semana</option>
+            </select>
+            <button type="button">Salvar Filtro Atual</button>
+        </div>
+
+        <br>
+        <hr>
+        <br>
+
+        <!-- Ações do Formulário -->
+        <div class="acoes-filtro">
+            <button type="button">Limpar Filtros</button>
+            <button type="submit">Aplicar Filtros</button>
+        </div>
+
+    </form>
+
+</div>

@@ -1,11 +1,17 @@
 <!-- Coluna 1: Formulário -->
 <section class="bg-[#0d1713] rounded-2xl border border-[#1a2f26] p-6 flex flex-col h-fit">
-  <div class="flex items-center gap-3 mb-6">
-    <div class="w-8 h-8 rounded-full bg-[#132b21] flex items-center justify-center text-[#1fd68b]">
-      <mat-icon class="text-[20px] w-5 h-5">add</mat-icon>
+  
+    <div class="flex items-center gap-3 mb-6">
+      <div class="w-8 h-8 rounded-full bg-[#132b21] flex items-center justify-center text-[#1fd68b]">
+        <mat-icon class="text-[20px] w-5 h-5">add</mat-icon>
+      </div>
+      <h2 class="text-lg font-bold text-white">Nova Ordem</h2>
+      <div class="w-8 h-8 rounded-full bg-[#132b21] flex items-center justify-center text-[#1fd68b]">
+        <mat-icon class=" [20px] w-5 h-5">add</mat-icon>
+      </div>
+      <h2 class="text-lg font-bold text-white">Cliente cadastrado</h2>
     </div>
-    <h2 class="text-lg font-bold text-white">Nova Ordem</h2>
-  </div>
+
 
   <form [formGroup]="formulario" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
     
@@ -31,7 +37,7 @@
       <!-- TELEFONE -->
         <div class="flex flex-col gap-1.5 sm:col-span-2 lg:col-span-1">
           <label for="telefone" class="text-xs font-bold text-[#7aa899] uppercase tracking-wider flex items-center gap-1">
-            <mat-icon class="text-[16px] w-4 h-4">call</mat-icon> Nº DE TELEFONE
+            <mat-icon class="text-[16px] w-4 h-4">call</mat-icon> Nº DE TELEFONE 
           </label>
           <input type="tel" id="contato" formControlName="contato" 
                 class="w-full px-4 py-2 rounded-xl bg-[#08100d] border border-[#1a2f26] text-white placeholder-[#3f5c51] focus:ring-1 focus:ring-[#1fd68b] focus:border-[#1fd68b] outline-none transition-all"
@@ -61,7 +67,7 @@
             <option type="text" value="Xiaomi" class="text-white">Xiaomi</option>
             <option type="text" value="Realme" class="text-white">Realme</option>
             <option type="text" value="Infinix" class="text-white">Infinix</option>
-            <option type="text" value="Nao Identificado" class="text-white">Não Identificado</option>
+            <option type="text" value="Nao Identificado" class="text-white">Outro</option>
         </select>
       </div>
 
@@ -133,6 +139,7 @@
           <option value="Pix" class="text-white">Pix</option>
           <option value="Crédito" class="text-white">Crédito</option>
           <option value="Débito" class="text-white">Débito</option>
+          <option value="Não informado" class="text-white">Não pago</option>
         </select>
       </div>
 

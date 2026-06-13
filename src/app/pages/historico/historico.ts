@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { HistoricoOrdemServico } from "../../component/historico-ordem-servico/historico-ordem-servico";
+import { Filtros } from '../../component/filtros/filtros';
 
 @Component({
   standalone: true,
   selector: 'app-historico',
-  imports: [HistoricoOrdemServico],
+  imports: [HistoricoOrdemServico, Filtros],
   templateUrl: './historico.html',
   styleUrl: './historico.css',
 })

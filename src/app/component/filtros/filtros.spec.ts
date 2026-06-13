@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MiniMenu } from './mini-menu';
+import { Filtros } from './filtros';
 
-describe('MiniMenu', () => {
-  let component: MiniMenu;
-  let fixture: ComponentFixture<MiniMenu>;
+describe('Filtros', () => {
+  let component: Filtros;
+  let fixture: ComponentFixture<Filtros>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MiniMenu],
+      imports: [Filtros],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(MiniMenu);
+    fixture = TestBed.createComponent(Filtros);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
