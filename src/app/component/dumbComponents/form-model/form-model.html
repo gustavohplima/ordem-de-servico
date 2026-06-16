@@ -6,10 +6,15 @@
         <mat-icon class="text-[20px] w-5 h-5">add</mat-icon>
       </div>
       <h2 class="text-lg font-bold text-white">Nova Ordem</h2>
+      <div class="w-8 h-8 rounded-full bg-[#132b21] flex items-center justify-center text-[#1fd68b]">
+        <mat-icon class=" [20px] w-5 h-5">add</mat-icon>
+      </div>
+      <h2 class="text-lg font-bold text-white">Cliente cadastrado</h2>
     </div>
 
 
-  <form [formGroup]="formulario" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+  <!-- <form [formGroup]="formulario" (ngSubmit)="onSubmit()" class="flex flex-col gap-4"> -->
+  <form class="flex flex-col gap-4">
     
     <!-- NOME -->
     <div class="flex flex-col gap-1.5">
@@ -54,7 +59,8 @@
           class="w-full px-4 py-2 rounded-xl bg-[#08100d] border border-[#1a2f26] 
                 focus:ring-1 focus:ring-[#1fd68b] focus:border-[#1fd68b] outline-none transition-all
                 invalid:text-[#3f5c51] text-white" 
-          formControlName="marca" required>
+          formControlName="marca" 
+          required>
             <option type="text" value="" disabled selected hidden>Marca:</option>
             <option type="text" value="Motorola" class="text-white">Motorola</option>
             <option type="text" value="Apple" class="text-white">Apple</option>
@@ -117,28 +123,27 @@
                class="w-full px-4 py-2 rounded-xl bg-[#08100d] border border-[#1a2f26] text-white placeholder-[#3f5c51] focus:ring-1 focus:ring-[#1fd68b] focus:border-[#1fd68b] outline-none transition-all"
                placeholder="Valor:">
       </div>
-            <!-- FORMA DE PAGAMENTO -->
+
+      <!-- FORMA DE PAGAMENTO -->
       <div class="flex flex-col gap-1.5">
         <label for="formaPagamento" class="text-xs font-bold text-[#7aa899] uppercase tracking-wider flex items-center gap-1">
           <mat-icon class="text-[16px] w-4 h-4">credit_card</mat-icon> FORMA DE PAGAMENTO
         </label>
-            
-        <select 
-          type="text"
-          name="formaPagamento" 
+        <select
           id="formaPagamento"
-          class="w-full px-4 py-2 rounded-xl bg-[#08100d] border border-[#1a2f26] 
+          formControlName="formaPagamento"
+          class="w-full px-4 py-2 rounded-xl bg-[#08100d] border border-[#1a2f26]
                 focus:ring-1 focus:ring-[#1fd68b] focus:border-[#1fd68b] outline-none transition-all
-                invalid:text-[#3f5c51] text-white" 
-          formControlName="formaPagamento" required>
-          <option type="text" value="" disabled selected hidden>Forma de Pagamento:</option>
+                text-white">
           <option value="Não informado" class="text-white">Não informado</option>
           <option value="Dinheiro" class="text-white">Dinheiro</option>
           <option value="Pix" class="text-white">Pix</option>
           <option value="Crédito" class="text-white">Crédito</option>
           <option value="Débito" class="text-white">Débito</option>
+          <option value="Não informado" class="text-white">Não pago</option>
         </select>
       </div>
+
       
     </div>
 
@@ -152,7 +157,7 @@
                 placeholder="Detalhes adicionais..."></textarea>
     </div>
 
-    <button type="submit" [disabled]="formulario.invalid"
+    <button type="submit" 
             class="mt-4 w-full bg-[#1fd68b] hover:bg-[#1ab877] disabled:opacity-50 disabled:cursor-not-allowed text-[#08100d] font-bold py-3.5 px-4 rounded-xl transition-colors flex items-center justify-center gap-2 cursor-pointer" >
       <mat-icon>add</mat-icon>
       Adicionar Ordem de Serviço

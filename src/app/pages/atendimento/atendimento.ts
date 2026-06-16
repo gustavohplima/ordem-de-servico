@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { PageForm } from '../../component/page-form/page-form';
 import { ListHistoricoPage } from '../../component/list-historico-pendentes/list-historico-page';
+import { ServicosEntregues } from '../../component/servicos-entregues/servicos-entregues';
+import { ListModel } from "../../component/dumbComponents/list-model/list-model";
+import { FormModel } from "../../component/dumbComponents/form-model/form-model";
+import { ComponenteDeTestes } from "../../component/componente-de-testes/componente-de-testes";
 
 @Component({
   standalone: true,

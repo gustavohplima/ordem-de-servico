@@ -9,6 +9,8 @@ import { AUTH_CONFIG } from '../auth/auth.config';
 })
 export class OrdemServico {
 
+  private urlBackend = 'http://localhost:8080/api/comprovante/download';
+
   private readonly apiUrl = `${AUTH_CONFIG.API_URL}/api/registros`;
   private readonly http = inject(HttpClient); // Injeção do HttpClient para comunicação com a API
   private readonly atualizarLista = new BehaviorSubject<void>(undefined); // Subject para acionar a atualização da lista de produtos
@@ -18,6 +20,11 @@ export class OrdemServico {
   //   return this.http.get<PagedResponse<Formulario>>(this.apiUrl);
     
   // }
+
+  gerarPDF(): Observable<Blob> {
+    // É obrigatório definir o responseType como 'blob'
+    return this.http.get(this.urlBackend, { responseType: 'blob' });
+  }
 
   salvarFormulario(dados: OrdemServicoRequest): Observable<Formulario> {
     return this.http.post<Formulario>(this.apiUrl, dados).pipe(

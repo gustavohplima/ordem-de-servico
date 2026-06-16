@@ -49,19 +49,19 @@ export class PageForm {
     status: FormControl<Formulario['status']>;
     dataHora: FormControl<Date>;
   }>({
-    nome: new FormControl<string>('', { nonNullable: true }),
-    cpf: new FormControl<string>('', { nonNullable: true }),
-    marca: new FormControl<string>('', { nonNullable: true }),
-    modelo: new FormControl<string>('', { nonNullable: true }),
-    defeito: new FormControl<string>('', { nonNullable: true }),
-    cor: new FormControl<string>('', { nonNullable: true }),
-    nSerieOuImei: new FormControl<string>('', { nonNullable: true }),
-    valor: new FormControl<number>(0, { nonNullable: true }),
-    formaPagamento: new FormControl<string>('Não informado', { nonNullable: true }),
-    contato: new FormControl<string>('', { nonNullable: true }),
-    observacao: new FormControl<string>('', { nonNullable: true }),
-    status: new FormControl<Formulario['status']>('Pendente', { nonNullable: true }),
-    dataHora: new FormControl<Date>(new Date(), { nonNullable: true }),
+        nome: new FormControl<string>('', { nonNullable: true }),
+        cpf: new FormControl<string>('', { nonNullable: true }),
+        marca: new FormControl<string>('', { nonNullable: true }),
+        modelo: new FormControl<string>('', { nonNullable: true }),
+        defeito: new FormControl<string>('', { nonNullable: true }),
+        cor: new FormControl<string>('', { nonNullable: true }),
+        nSerieOuImei: new FormControl<string>('', { nonNullable: true }),
+        valor: new FormControl<number>(0, { nonNullable: true }),
+        formaPagamento: new FormControl<string>('', { nonNullable: true }),
+        contato: new FormControl<string>('', { nonNullable: true }),
+        observacao: new FormControl<string>('', { nonNullable: true }),
+        status: new FormControl<Formulario['status']>('Pendente', { nonNullable: true }),
+        dataHora: new FormControl<Date>(new Date(), { nonNullable: true }),
   });
 
   onSubmit(): void {
@@ -98,7 +98,7 @@ export class PageForm {
           cor: '',
           nSerieOuImei: '',
           valor: 0,
-          formaPagamento: 'Não informado',
+          formaPagamento: '',
           contato: '',
           observacao: '',
           status: 'Pendente',
