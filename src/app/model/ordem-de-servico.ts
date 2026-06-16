@@ -6,7 +6,7 @@ export interface Formulario {
   modelo: string;
   defeito: string;
   cor: string;
-  nSerieOuImei: string;
+  imei_nserie: string;
   valor: number;
   forma_pagamento: string;
   contato: string;

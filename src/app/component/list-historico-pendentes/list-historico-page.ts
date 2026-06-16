@@ -22,6 +22,7 @@ export class ListHistoricoPage implements OnInit {
   readonly lista$: Observable<Formulario[]> = this.dataService.produtosPendentesAtualizados$.pipe( // Observable que emite a lista de produtos atualizada sempre que a ação de atualização é acionada
     tap(() => this.loading.set(false)), //
     map((dados) => dados.content),//
+      tap(resultado => console.log('Dados da lista:', resultado)),
     catchError(() => {
       this.loading.set(false);
       return of([]);

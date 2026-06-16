@@ -15,6 +15,9 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   constructor(private readonly notificationService: NotificationService) {}
 
   intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    if (req.responseType === 'blob' || req.url.includes('/api/pdf')) {
+      return next.handle(req);
+    }
     return next.handle(req).pipe(
       catchError((error: HttpErrorResponse) => {
         // Erros de autenticação esperados não devem poluir a UI com toast.

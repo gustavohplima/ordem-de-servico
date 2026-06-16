@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HistoricoTodosRegistros } from './historico-todos-registros';
+import { Formulario } from './formulario';
 
-describe('HistoricoTodosRegistros', () => {
-  let component: HistoricoTodosRegistros;
-  let fixture: ComponentFixture<HistoricoTodosRegistros>;
+describe('Formulario', () => {
+  let component: Formulario;
+  let fixture: ComponentFixture<Formulario>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HistoricoTodosRegistros],
+      imports: [Formulario],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(HistoricoTodosRegistros);
+    fixture = TestBed.createComponent(Formulario);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
