@@ -57,11 +57,12 @@
                 </div>
                 <div class="flex items-center gap-2 ">
                   <mat-icon class="text-[16px] w-4 h-4">credit_card</mat-icon>
-                  <span><span class="font-semibold text-[#7aa899]">Pagamento:</span> {{ order.forma_pagamento }}</span>
+                  <span><span class="font-semibold text-[#7aa899]">Pagamento:</span> <br>
+                   {{ order.forma_pagamento }}</span>
                 </div>
                 <div class="flex items-center gap-2 ">
                   <mat-icon class="text-[16px] w-4 h-4">qr_code_2</mat-icon>
-                  <span class="break-all"><span class="font-semibold text-[#7aa899]">IMEI/Série:
+                  <span class="break-all"><span class="font-semibold text-[#7aa899]">IMEI/Série: <br>
                   </span> {{ order.imei_nserie }} </span>
                 </div>
               </div>
@@ -103,8 +104,8 @@
                     <textarea [(ngModel)]="order.observacao" class="edit-textarea bg-transparent text-[#7aa899] border-none outline-none resize-none w-full" rows="2" placeholder="Observação"></textarea>
                 </div>
               }
+              
             </div>
-
             <!--SESSAO DE BOTOES -->
             @if (!order.editando){
               <div class="flex gap-3">
