@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { FiltrosRegistro, Formulario, Page, RegistroResponseDTO } from '../../model/ordem-de-servico';
 import { OrdemServico } from '../../services/ordem-servico';
 import { NotificationService } from '../../services/notification.service';
-import { catchError, map, Observable, of, tap } from 'rxjs';
+import { catchError, firstValueFrom, map, Observable, of, tap } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -16,12 +16,13 @@ import { catchError, map, Observable, of, tap } from 'rxjs';
 })
 export class HistoricoOrdemServico implements OnInit {
   readonly loading = signal(true);
-  private readonly dataService = inject(OrdemServico)
+  readonly carregandoPdfId = signal<number | null>(null);
+  private readonly dataService = inject(OrdemServico);
   private readonly notificationService = inject(NotificationService);
 
   readonly registrosConcluidos$: Observable<Formulario[]> = this.dataService.produtosConcluidosAtualizados$.pipe(
-    tap(() => this.loading.set(false)), //
-    map((dados) => dados.content),//
+    tap(() => this.loading.set(false)),
+    map((dados) => dados.content),
     catchError(() => {
       this.loading.set(false);
       return of([]);
@@ -32,48 +33,91 @@ export class HistoricoOrdemServico implements OnInit {
     // O observable lista$ já é inicializado antes do template ser renderizado.
   }
 
-  readonly registros = signal<RegistroResponseDTO[]>([]); // Signal para armazenar a lista de registros exibidos
-  readonly paginaInfo = signal<Page<RegistroResponseDTO> | null>(null); //  Signal para armazenar as informações de paginação retornadas pela API
-  readonly carregando = signal<boolean>(false); // Signal para controlar o estado de carregamento da lista de registros
+  readonly registros = signal<RegistroResponseDTO[]>([]);
+  readonly paginaInfo = signal<Page<RegistroResponseDTO> | null>(null);
+  readonly carregando = signal<boolean>(false);
 
-
-  readonly filtros = signal<FiltrosRegistro>({ // Signal para armazenar os filtros de busca utilizados para recuperar os registros
+  readonly filtros = signal<FiltrosRegistro>({
     page: 0,
     size: 20,
     dataReferencia: undefined,
     todos: false,
     pendentes: false,
-    concluidos: false
-  });  
+    concluidos: false,
+  });
 
-  buscar(): void {   // Método para buscar os registros com base nos filtros atuais
+  buscar(): void {
     this.carregando.set(true);
-    
-    this.dataService.buscarRegistros(this.filtros()).subscribe({ // Realiza a busca dos registros utilizando os filtros atuais
+
+    this.dataService.buscarRegistros(this.filtros()).subscribe({
       next: (result) => {
         this.paginaInfo.set(result);
         this.registros.set(result.content);
         this.carregando.set(false);
       },
-      error: () => { // Em caso de erro na comunicação com a API, exibe uma notificação de erro e limpa a lista de registros
+      error: () => {
         this.carregando.set(false);
         this.notificationService.error(
-          'Não foi possível carregar os registros. Tente novamente mais tarde.', 
+          'Não foi possível carregar os registros. Tente novamente mais tarde.',
           'Erro na Operação'
         );
-      }
+      },
     });
   }
 
   listarConcluidos(): void {
-    this.filtros.update(f => ({ ...f, page: 0, todos: false, pendentes: false, concluidos: true }));
+    this.filtros.update((f) => ({ ...f, page: 0, todos: false, pendentes: false, concluidos: true }));
     this.buscar();
   }
 
   itemExpandidoId = signal<number | null>(null);
 
   alternarExpansao(id: number): void {
-    this.itemExpandidoId.update(idAtual => idAtual === id ? null : id);
+    this.itemExpandidoId.update((idAtual) => (idAtual === id ? null : id));
   }
-  
+
+  async abrirComprovante(id: number): Promise<void> {
+    this.carregandoPdfId.set(id);
+
+    try {
+      const blob = await firstValueFrom(this.dataService.obterComprovante(id));
+      this.abrirBlobPdf(blob);
+    } catch {
+      this.notificationService.error(
+       // 'Não foi possível abrir o comprovante desta ordem.',
+        'PDF GERADO'
+      );
+    } finally {
+      this.carregandoPdfId.set(null);
+    }
+  }
+
+  async imprimirComprovante(id: number): Promise<void> {
+    await this.abrirComprovante(id);
+  }
+
+  async enviarViaWhatsApp(id: number): Promise<void> {
+    return;
+  }
+
+  private abrirBlobPdf(blob: Blob): void {
+    const pdfBlob = blob.type === 'application/pdf'
+      ? blob
+      : new Blob([blob], { type: 'application/pdf' });
+
+    const fileUrl = URL.createObjectURL(pdfBlob);
+    const popup = window.open(fileUrl, '_blank', 'noopener,noreferrer');
+
+    if (popup) {
+      popup.addEventListener('load', () => {
+        setTimeout(() => URL.revokeObjectURL(fileUrl), 1000);
+      }, { once: true });
+    } else {
+      URL.revokeObjectURL(fileUrl);
+      this.notificationService.error(
+        'O navegador bloqueou a abertura da pré-visualização do PDF.',
+        'Bloqueio de Pop-up'
+      );
+    }
+  }
 }

@@ -5,11 +5,12 @@ import { ServicosEntregues } from '../../component/servicos-entregues/servicos-e
 import { ListModel } from "../../component/dumbComponents/list-model/list-model";
 import { FormModel } from "../../component/dumbComponents/form-model/form-model";
 import { ComponenteDeTestes } from "../../component/componente-de-testes/componente-de-testes";
+import { Edicao } from '../../component/edicao/edicao';
 
 @Component({
   standalone: true,
   selector: 'app-atendimento',
-  imports: [PageForm, ListHistoricoPage],
+  imports: [PageForm, ListHistoricoPage, Edicao],
   templateUrl: './atendimento.html',
   styleUrl: './atendimento.css',
 })

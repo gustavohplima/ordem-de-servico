@@ -6,11 +6,12 @@ import { catchError, map, Observable, of, tap } from 'rxjs';
 import { FiltrosRegistro, Formulario, Page, RegistroResponseDTO } from '../../model/ordem-de-servico';
 import { NotificationService } from '../../services/notification.service';
 import { OrdemServico } from '../../services/ordem-servico';
+import { Edicao } from '../edicao/edicao';
 
 @Component({
   standalone: true,
   selector: 'app-list-historico-page',
-  imports: [AsyncPipe, CommonModule, MatIconModule, FormsModule],
+  imports: [AsyncPipe, CommonModule, MatIconModule, FormsModule, Edicao],
   templateUrl: './list-historico-page.html',
   styleUrl: './list-historico-page.css',
 })

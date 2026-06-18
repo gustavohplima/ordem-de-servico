@@ -3,6 +3,7 @@ import { HistoricoOrdemServico } from "../../component/historico-ordem-servico/h
 import { Filtros } from '../../component/filtros/filtros';
 import { ComponenteDeTestes } from '../../component/componente-de-testes/componente-de-testes';
 
+
 @Component({
   standalone: true,
   selector: 'app-historico',
