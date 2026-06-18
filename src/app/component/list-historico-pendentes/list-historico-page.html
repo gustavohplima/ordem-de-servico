@@ -14,129 +14,136 @@
 
   <div class="flex flex-col gap-4">
           @for (order of lista$ | async; track order.id) {
-            <div class="border border-[#1a2f26] rounded-xl p-5 bg-[#08100d]">
+            <div class="border border-[#1a2f26] rounded-xl p-5 pb-2 bg-[#08100d]">
               @if (!order.editando) {
-              <div class="flex justify-between items-start mb-2">
-                  <h3 class="font-bold text-white text-lg">{{ order.nome }}</h3>
-                  <span class="bg-[#132b21] text-[#7aa899] text-xs font-medium px-2.5 py-1 rounded-md">{{ order.marca }}: {{ order.modelo }}</span>
-              </div>
-              <div class="grid grid-cols-2">
-                <div class="text-[#1fd68b] font-bold text-lg mb-4">
-                    R$ {{ order.valor }}
-                </div>
-                <div class="flex items-center gap-2 text-lg mb-4 text-[#7aa899]">
-                  <mat-icon class="text-[16px] w-4 h-4 ">tag</mat-icon>
-                  <span><span class="font-semibold text-[#7aa899]">ID:</span> {{ order.id }}</span>
-                </div>
-              </div>
-              <div class="grid grid-cols-2 gap-y-2 gap-x-2 text-sm text-[#7aa899] mb-4">
-                <div class="flex items-center gap-2">
-                  <mat-icon class="text-[16px] w-4 h-4">call</mat-icon>
-                  <span class="font-semibold text-[#7aa899]">Contato:</span> 
-                  {{ order.contato }}
-                </div>
-                <div class="flex items-center gap-2">
-                  <mat-icon class="text-[16px] w-4 h-4">sell</mat-icon>
-                  <span class="font-semibold text-[#7aa899]">Defeito:</span>
-                    {{ order.defeito }}
-                </div>
-                <div class="flex items-center gap-2 ">
-                  <mat-icon class="text-[16px] w-4 h-4">description</mat-icon>
-                  <span class="font-semibold text-[#7aa899]">CPF:</span> 
-                  {{ order.cpf }}
-                </div>
-                <div class="flex items-center gap-2">
-                  <mat-icon class="text-[16px] w-4 h-4">palette</mat-icon>
-                  <span class="font-semibold text-[#7aa899]">Cor:</span> 
-                    {{ order.cor }}
-                </div>
-                <div class="flex items-center gap-2 ">
-                  <mat-icon class="text-[16px] w-4 h-4">event</mat-icon>
-                  <span><span class="font-semibold text-[#7aa899]">Criação: <br>
-                  </span> {{ order.dataHora ? (order.dataHora | date:'dd/MM/yyyy HH:mm') : '' }}</span>
-                </div>
-                <div class="flex items-center gap-2 ">
-                  <mat-icon class="text-[16px] w-4 h-4">credit_card</mat-icon>
-                  <span><span class="font-semibold text-[#7aa899]">Pagamento:</span> <br>
-                   {{ order.forma_pagamento }}</span>
-                </div>
-                <div class="flex items-center gap-2 ">
-                  <mat-icon class="text-[16px] w-4 h-4">qr_code_2</mat-icon>
-                  <span class="break-all"><span class="font-semibold text-[#7aa899]">IMEI/Série: <br>
-                  </span> {{ order.imei_nserie }} </span>
-                </div>
-              </div>
-              <div class="bg-[#0d1713] border border-[#1a2f26] rounded-lg p-3 text-sm">
-                <span class="font-bold text-[#7aa899]">Obs: </span>
-                <span class="text-[#7aa899]">{{ order.observacao }}</span>
-              </div>
-
-          } @else {
-
-                <div class="flex justify-between items-start mb-2">
-                  <div class="flex flex-col gap-2 flex-1 min-w-0 w-full">
-                    <input [(ngModel)]="order.nome" class="edit-input text-[#1fd68b] font-bold text-lg bg-transparent border-none outline-none" placeholder="Nome">
-                    <div class="flex gap-2 min-w-0 w-full">
-                      <input [(ngModel)]="order.marca" class="min-w-0 edit-input text-[#7aa899] text-xs bg-[#132b21] border-none outline-none px-2.5 py-1 rounded-md flex-1" placeholder="Marca">
-                      <input [(ngModel)]="order.modelo" class="min-w-0 edit-input text-[#7aa899] text-xs bg-[#132b21] border-none outline-none px-2.5 py-1 rounded-md flex-1" placeholder="Modelo">
-                    </div>
+                <!-- Topo: Foco total no Nome do Cliente e ID -->
+                <div class="flex justify-between items-start mb-1">
+                  <h1 class="font-bold text-white text-x tracking-wide truncate max-w-[75%]">
+                    {{ order.nome }}
+                  </h1>
+                  <!-- ID posicionado de forma discreta no canto superior direito -->
+                  <div class="flex items-center gap-1 text-xs text-[#5f8a7c] bg-[#0c1a14] px-2 py-0.5 rounded border border-[#163327]">
+                    <mat-icon class="text-[14px] w-3.5 h-3.5 opacity-70">tag</mat-icon>
+                    <span class="font-mono font-bold">{{ order.id }}</span>
                   </div>
                 </div>
-                <div class="text-[#1fd68b] font-bold text-lg mb-4">
-                    <input [(ngModel)]="order.valor" class="edit-input text-[#1fd68b] font-bold text-lg bg-transparent border-none outline-none" placeholder="Valor">
+
+                <!-- Subtopo: Modelo do Aparelho sem caixas pesadas -->
+                <div class="text-[#1fd68b] text-xs font-semibold uppercase tracking-wider mb-4">
+                  {{ order.marca }} <span class="text-white font-normal text-sm uppercase" style="text-transform: uppercase;">| {{ order.modelo }}</span>
                 </div>
-                <div class="grid grid-cols-2 gap-y-3 gap-x-2 text-sm text-[#7aa899] mb-4">
-                      <div class="flex items-center gap-2">
-                          <mat-icon class="text-[16px] w-4 h-4">call</mat-icon>
-                          <input [(ngModel)]="order.contato" class="edit-input text-[#7aa899] bg-transparent border-none outline-none" placeholder="Telefone">
-                      </div>
-                      <div class="flex items-center gap-2">
-                          <mat-icon class="text-[16px] w-4 h-4">sell</mat-icon>
-                          <input [(ngModel)]="order.defeito" class="edit-input text-[#7aa899] bg-transparent border-none outline-none" placeholder="Defeito">
-                      </div>
-                      <div class="flex items-center gap-2 col-span-2">
-                          <mat-icon class="text-[16px] w-4 h-4">description</mat-icon>
-                          <input [(ngModel)]="order.cpf" class="edit-input text-[#7aa899] bg-transparent border-none outline-none" placeholder="CPF">
-                      </div>
-                </div>
-                <div class="bg-[#0d1713] border border-[#1a2f26] rounded-lg p-3 mb-4 text-sm">
-                  <span class="font-bold text-gray-300">Obs:</span>
-                    <textarea [(ngModel)]="order.observacao" class="edit-textarea bg-transparent text-[#7aa899] border-none outline-none resize-none w-full" rows="2" placeholder="Observação"></textarea>
-                </div>
-              }
-              
-            </div>
-            <!--SESSAO DE BOTOES -->
-            @if (!order.editando){
-              <div class="flex gap-3">
-                  <button (click)="onConcluir(order.id)"
-                          class="flex-1 bg-[#132b21] hover:bg-[#1a382b] text-white font-bold py-2.5 px-4 rounded-xl transition-colors flex items-center justify-center gap-2 text-sm border border-[#1a2f26]">
-                    <mat-icon class="text-[18px] w-4.5 h-4.5">check</mat-icon>
-                    Finalizar
-                  </button>
-                  <button (click)="toggleEdit(order)"
-                            class="w-11 h-11 flex items-center justify-center bg-[#132b21] hover:bg-[#1a382b] text-[#7aa899] hover:text-white rounded-xl transition-colors border border-[#1a2f26]">
-                      <mat-icon class="text-[18px] w-4.5 h-4.5">edit</mat-icon>
-                  </button>
-                  <button (click)="onExcluir(order.id)"
-                          class="w-11 h-11 flex items-center justify-center bg-[#132b21] hover:bg-red-900/30 text-[#7aa899] hover:text-red-400 rounded-xl transition-colors border border-[#1a2f26]">
-                    <mat-icon class="text-[18px] w-4.5 h-4.5">delete_outline</mat-icon>
-                  </button>
+
+                <!-- Corpo do Card: Organizado em 2 Colunas por afinidade -->
+                <div class="grid grid-cols-2 gap-y-3 gap-x-4 text-sm text-[#7aa899] mb-4">
                   
-              </div>
-            } @else {
-              <div class="flex gap-3">
-                <button (click)="salvarEdicao(order)"
-                            class="flex-1 bg-[#132b21] hover:bg-[#1a382b] text-white font-bold py-2.5 px-4 rounded-xl transition-colors flex items-center justify-center gap-2 text-sm border border-[#1a2f26]">
-                      <mat-icon class="text-[18px] w-4.5 h-4.5">check</mat-icon>
-                      Salvar
-                  </button>
-                <button (click)="onExcluir(order.id)"
-                            class="w-11 h-11 flex items-center justify-center bg-[#132b21] hover:bg-red-900/30 text-[#7aa899] hover:text-red-400 rounded-xl transition-colors border border-[#1a2f26]">
-                      <mat-icon class="text-[18px] w-4.5 h-4.5">delete_outline</mat-icon>
-                  </button>
-              </div>
-            }
+                  <!-- COLUNA 1: DADOS DO CLIENTE & PAGAMENTO -->
+                  <div class="space-y-3">
+                    <div class="flex items-start gap-2">
+                      <mat-icon class="text-[16px] w-4 h-4 mt-0.5 text-[#5f8a7c]">call</mat-icon>
+                      <div class="flex flex-col">
+                        <span class="text-[11px] uppercase tracking-wider text-[#5f8a7c] font-bold">Contato</span>
+                        <span class="text-white font-medium">{{ order.contato || '-' }}</span>
+                      </div>
+                    </div>
+
+                    <div class="flex items-start gap-2">
+                      <mat-icon class="text-[16px] w-4 h-4 mt-0.5 text-[#5f8a7c]">description</mat-icon>
+                      <div class="flex flex-col">
+                        <span class="text-[11px] uppercase tracking-wider text-[#5f8a7c] font-bold">CPF</span>
+                        <span class="text-white font-medium">{{ order.cpf || '-' }}</span>
+                      </div>
+                    </div>
+
+                    <div class="flex items-start gap-2">
+                      <mat-icon class="text-[16px] w-4 h-4 mt-0.5 text-[#5f8a7c]">credit_card</mat-icon>
+                      <div class="flex flex-col">
+                        <span class="text-[11px] uppercase tracking-wider text-[#5f8a7c] font-bold">Pagamento</span>
+                        <span class="text-white font-medium">{{ order.forma_pagamento || '-' }}</span>
+                      </div>
+                    </div>
+
+                    <div class="flex items-start gap-2">
+                      <mat-icon class="text-[16px] w-4 h-4 mt-0.5 text-[#5f8a7c]">event</mat-icon>
+                      <div class="flex flex-col">
+                        <span class="text-[11px] uppercase tracking-wider text-[#5f8a7c] font-bold">Criação</span>
+                        <span class="text-white font-medium">{{ order.dataHora ? (order.dataHora | date:'dd/MM/yyyy HH:mm') : '-' }}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- COLUNA 2: DADOS DO APARELHO & SERVIÇO -->
+                  <div class="space-y-3">
+                    <div class="flex items-start gap-2">
+                      <mat-icon class="text-[16px] w-4 h-4 mt-0.5 text-[#5f8a7c]">sell</mat-icon>
+                      <div class="flex flex-col">
+                        <span class="text-[11px] uppercase tracking-wider text-[#5f8a7c] font-bold">Defeito</span>
+                        <span class="font-semibold text-[#1fd68b]">{{ order.defeito || '-' }}</span>
+                      </div>
+                    </div>
+
+                    <div class="flex items-start gap-2">
+                      <mat-icon class="text-[16px] w-4 h-4 mt-0.5 text-[#5f8a7c]">palette</mat-icon>
+                      <div class="flex flex-col">
+                        <span class="text-[11px] uppercase tracking-wider text-[#5f8a7c] font-bold">Cor</span>
+                        <span class="text-white font-medium capitalize">{{ order.cor || '-' }}</span>
+                      </div>
+                    </div>
+
+                    <div class="flex items-start gap-2">
+                      <mat-icon class="text-[16px] w-4 h-4 mt-0.5 text-[#5f8a7c]">qr_code_2</mat-icon>
+                      <div class="flex flex-col min-w-0">
+                        <span class="text-[11px] uppercase tracking-wider text-[#5f8a7c] font-bold">IMEI / Série</span>
+                        <span class="text-white font-medium break-all text-xs">{{ order.imei_nserie || '-' }}</span>
+                      </div>
+                    </div>
+                    
+                    <!-- Valor reposicionado no fluxo lógico do serviço -->
+                    <div class="flex items-start gap-2 pt-1">
+                      <div class="w-4 h-4"></div> <!-- Alinhador invisível para manter o padrão sem ícone -->
+                      <div class="flex flex-col">
+                        <span class="text-[11px] uppercase tracking-wider text-[#5f8a7c] font-bold">Valor Total</span>
+                        <span class="text-[#1fd68b] font-extrabold text-lg leading-none mt-1">R$ {{ order.valor }}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <!-- Rodapé: Observações -->
+                <div class="bg-[#0c1411] border border-[#162720] rounded-lg p-3 text-xs leading-relaxed">
+                  <span class="font-bold text-[#5f8a7c] uppercase tracking-wider mr-1 text-[10px]">Obs:</span>
+                  <span class="text-[#7aa899] font-medium">{{ order.observacao || 'Nenhuma observação cadastrada.' }}</span>
+                </div>
+
+
+                } @else {
+                  <app-edicao
+                    [ordem]="order"
+                    (salvar)="salvarEdicao($event)"
+                    (cancelar)="toggleEdit(order)"
+                  />
+                }
+
+                @if (!order.editando){
+                  <div class="flex gap-3 py-3">
+                      <button (click)="onConcluir(order.id)"
+                              class="flex-1 bg-[#132b21] hover:bg-[#1a382b] text-white font-bold py-2.5 px-4 rounded-xl transition-colors flex items-center justify-center gap-2 text-sm border border-[#1a2f26]">
+                        <mat-icon class="text-[18px] w-4.5 h-4.5">check</mat-icon>
+                        Finalizar
+                      </button>
+                      <button (click)="toggleEdit(order)"
+                                class="w-11 h-11 flex items-center justify-center bg-[#132b21] hover:bg-[#1a382b] text-[#7aa899] hover:text-white rounded-xl transition-colors border border-[#1a2f26]">
+                          <mat-icon class="text-[18px] w-4.5 h-4.5">edit</mat-icon>
+                      </button>
+                      <button (click)="onExcluir(order.id)"
+                              class="w-11 h-11 flex items-center justify-center bg-[#132b21] hover:bg-red-900/30 text-[#7aa899] hover:text-red-400 rounded-xl transition-colors border border-[#1a2f26]">
+                        <mat-icon class="text-[18px] w-4.5 h-4.5">delete_outline</mat-icon>
+                      </button>
+                  </div>
+                }
+
+            </div>
+            
             } @empty {
               <div class="text-center py-10 text-[#3f5c51] flex flex-col items-center gap-2">
               <mat-icon class="text-4xl opacity-50">inbox</mat-icon>
