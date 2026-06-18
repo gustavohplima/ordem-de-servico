@@ -8,22 +8,21 @@ import { AUTH_CONFIG } from '../auth/auth.config';
   providedIn: 'root',
 })
 export class OrdemServico {
-
-  private urlBackend = 'http://localhost:8080/api/comprovante/download';
-
   private readonly apiUrl = `${AUTH_CONFIG.API_URL}/api/registros`;
+  private readonly comprovanteApiUrl = `${AUTH_CONFIG.API_URL}/api/comprovante`;
   private readonly http = inject(HttpClient); // Injeção do HttpClient para comunicação com a API
   private readonly atualizarLista = new BehaviorSubject<void>(undefined); // Subject para acionar a atualização da lista de produtos
   readonly acaoAtualizarLista$ = this.atualizarLista.asObservable(); // Observable para acionar a atualização da lista de produtos
 
   // getOrdemDeServicos(): Observable<PagedResponse<Formulario>> {
   //   return this.http.get<PagedResponse<Formulario>>(this.apiUrl);
-    
+
   // }
 
-  gerarPDF(): Observable<Blob> {
-    // É obrigatório definir o responseType como 'blob'
-    return this.http.get(this.urlBackend, { responseType: 'blob' });
+  obterComprovante(id: number): Observable<Blob> {
+    return this.http.get(`${this.comprovanteApiUrl}/${id}`, {
+      responseType: 'blob',
+    });
   }
 
   salvarFormulario(dados: OrdemServicoRequest): Observable<Formulario> {

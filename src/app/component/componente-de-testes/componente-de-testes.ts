@@ -29,24 +29,28 @@ export class ComponenteDeTestes {
 
 
   private readonly dataService = inject(OrdemServico); // Injeção do serviço de dados para comunicação com a API
-  baixarPDF(): void{
-    this.dataService.gerarPDF().subscribe({
+
+  baixarPDF(): void {
+    this.dataService.obterComprovante(1).subscribe({
       next: (response: Blob) => {
-        // 1. Garante que o navegador interprete o binário como PDF
-        const file = new Blob([response], { type: 'application/pdf' });
-        
-        // 2. Cria a URL segura do objeto
-        const fileURL = window.URL.createObjectURL(file);
-        
-        // 3. Abre em uma nova aba do navegador para visualização/impressão
-        window.open(fileURL, '_blank');
-        
-        // Nota: Não limpe com revokeObjectURL imediatamente se for abrir em nova aba, 
-        // pois o navegador precisa da URL ativa para renderizar a página.
+        const fileURL = window.URL.createObjectURL(response);
+        const popup = window.open(fileURL, '_blank', 'noopener,noreferrer');
+
+        if (popup) {
+          popup.addEventListener(
+            'load',
+            () => {
+              setTimeout(() => window.URL.revokeObjectURL(fileURL), 1000);
+            },
+            { once: true }
+          );
+        } else {
+          window.URL.revokeObjectURL(fileURL);
+        }
       },
-      error: (err) => {
+      error: (err: unknown) => {
         console.error('Erro ao buscar o PDF:', err);
-      }
+      },
     });
   }
 
