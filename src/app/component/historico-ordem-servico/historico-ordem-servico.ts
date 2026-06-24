@@ -5,6 +5,10 @@ import { FiltrosRegistro, Formulario, Page, RegistroResponseDTO } from '../../mo
 import { OrdemServico } from '../../services/ordem-servico';
 import { NotificationService } from '../../services/notification.service';
 import { catchError, firstValueFrom, map, Observable, of, tap } from 'rxjs';
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
+
+registerLocaleData(localePt, 'pt-BR');
 
 @Component({
   standalone: true,
@@ -76,17 +80,55 @@ export class HistoricoOrdemServico implements OnInit {
     this.itemExpandidoId.update((idAtual) => (idAtual === id ? null : id));
   }
 
-  async abrirComprovante(id: number): Promise<void> {
+async abrirComprovante(id: number): Promise<void> {
     this.carregandoPdfId.set(id);
+
+    const novaAba = window.open('about:blank', '_blank');
+
+    if (!novaAba) {
+      this.notificationService.error('Por favor, permita pop-ups para este site.', 'Bloqueio de Pop-up');
+      this.carregandoPdfId.set(null);
+      return;
+    }
+
+    // 1. Injetamos um ID único no body para servir como nossa "marcação"
+    novaAba.document.title = 'Carregando...';
+    novaAba.document.body.id = 'aba-pdf-carregando'; 
+    novaAba.document.body.innerHTML = '<p style="font-family:sans-serif; text-align:center; margin-top:20px;">Gerando seu PDF...</p>';
 
     try {
       const blob = await firstValueFrom(this.dataService.obterComprovante(id));
-      this.abrirBlobPdf(blob);
-    } catch {
-      this.notificationService.error(
-       // 'Não foi possível abrir o comprovante desta ordem.',
-        'PDF GERADO'
-      );
+      const pdfBlob = blob.type === 'application/pdf' 
+        ? blob 
+        : new Blob([blob], { type: 'application/pdf' });
+      
+      const fileUrl = URL.createObjectURL(pdfBlob);
+      novaAba.location.href = fileUrl;
+
+      setTimeout(() => URL.revokeObjectURL(fileUrl), 8000);
+
+      // 2. O Pulo do Gato: Checagem se a aba ficou "órfã" após 3 segundos
+      setTimeout(() => {
+        try {
+          // Se a aba não foi fechada pelo usuário E o nosso ID original ainda estiver lá,
+          // significa que o visualizador de PDF não assumiu a tela (IDM sequestrou).
+          if (!novaAba.closed && novaAba.document.body.id === 'aba-pdf-carregando') {
+            novaAba.close(); // Fecha a aba órfã silenciosamente
+          }
+        } catch (e) {
+          // 3. Bloco Catch Vazio Intencional
+          // Quando o visualizador nativo de PDF do navegador carrega, ele frequentemente
+          // muda o contexto de segurança da aba. Tentar acessar "novaAba.document" 
+          // vai gerar um erro de Cross-Origin (CORS). Se der erro, significa que o 
+          // PDF abriu com sucesso na tela! Então não fazemos nada.
+        }
+      }, 3000); // 3 segundos é tempo suficiente para o navegador/IDM decidir o destino
+
+    } catch (error) {
+      if (novaAba && !novaAba.closed) {
+        novaAba.close(); 
+      }
+      this.notificationService.error('Não foi possível gerar o comprovante.', 'Erro ao Gerar PDF');
     } finally {
       this.carregandoPdfId.set(null);
     }
@@ -97,27 +139,12 @@ export class HistoricoOrdemServico implements OnInit {
   }
 
   async enviarViaWhatsApp(id: number): Promise<void> {
-    return;
-  }
-
-  private abrirBlobPdf(blob: Blob): void {
-    const pdfBlob = blob.type === 'application/pdf'
-      ? blob
-      : new Blob([blob], { type: 'application/pdf' });
-
-    const fileUrl = URL.createObjectURL(pdfBlob);
-    const popup = window.open(fileUrl, '_blank', 'noopener,noreferrer');
-
-    if (popup) {
-      popup.addEventListener('load', () => {
-        setTimeout(() => URL.revokeObjectURL(fileUrl), 1000);
-      }, { once: true });
-    } else {
-      URL.revokeObjectURL(fileUrl);
-      this.notificationService.error(
-        'O navegador bloqueou a abertura da pré-visualização do PDF.',
-        'Bloqueio de Pop-up'
-      );
+    // Exemplo de como implementar mantendo o padrão assíncrono do componente
+    try {
+      this.notificationService.info('Preparando envio para o WhatsApp...', 'WhatsApp');
+      // Adicione sua lógica de integração com a API do WhatsApp aqui futuramente
+    } catch {
+      this.notificationService.error('Falha ao disparar mensagem para o WhatsApp.', 'Erro WhatsApp');
     }
   }
 }
