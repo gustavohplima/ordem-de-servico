@@ -6,6 +6,9 @@ import { IndividualConfig, ToastrService } from 'ngx-toastr';
   providedIn: 'root',
 })
 export class NotificationService {
+  info(arg0: string, arg1: string) {
+    throw new Error('Method not implemented.');
+  }
   private readonly successConfig: Partial<IndividualConfig> = {
     timeOut: 3000,
     progressBar: true,
